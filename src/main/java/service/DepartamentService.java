@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 public interface DepartamentService {
+    double sum(int deptId);
+
     Employee maxSalary(int deptId);
 
     Employee minSalary(int deptId);

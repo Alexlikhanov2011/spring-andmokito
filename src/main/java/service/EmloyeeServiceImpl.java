@@ -1,5 +1,6 @@
 package service;
 
+import exception.EmployeeAllreadyAddedException;
 import exception.EmployeeNotFoundException;
 import exception.EmployeeStorageIsFullException;
 import model.Employee;
@@ -17,15 +18,15 @@ public class EmloyeeServiceImpl implements EmloyeeService {
     private final Map<String, Employee> employees = new HashMap<>();
 
     @Override
-    public void addEmployee(String lastName, String firstName) {
+    public void addEmployee(String lastName, String firstName, double salary, int departamentId) {
         if (employees.size() == SIZE) {
             throw new EmployeeStorageIsFullException();
         }
         var key = makeKey(lastName, firstName);
         if (employees.containsKey(key)) {
-            throw new EmployeeNotFoundException();
+            throw new EmployeeAllreadyAddedException();
         }
-        employees.put(key, new Employee(capitalize(firstName), lastName));
+        employees.put(key, new Employee(capitalize(firstName), capitalize(lastName), salary, departamentId));
     }
 
     @Override
