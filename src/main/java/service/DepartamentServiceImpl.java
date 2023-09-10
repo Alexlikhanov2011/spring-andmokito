@@ -11,21 +11,27 @@ import java.util.stream.Collectors;
 
 @Service
 public class DepartamentServiceImpl implements DepartamentService {
-    private final EmloyeeServiceImpl emloyeeServiceImpl;
+    private EmloyeeServiceImpl emloyeeServiceImpl;
 
-    private DepartamentServiceImpl(EmloyeeServiceImpl emloyeeServiceImpl) {
+    public DepartamentServiceImpl() {
         this.emloyeeServiceImpl = emloyeeServiceImpl;
     }
-
+@Override
+    public double sum (int deptId){
+        return emloyeeServiceImpl.getAll()
+                .stream()
+                .filter(e -> e.getDepartament() == deptId)
+                .mapToDouble(Employee::getSalary)
+                .sum();
+    }
     @Override
-    public Employee maxSalary(int deptId) {
+    public  Employee maxSalary(int deptId) {
         return emloyeeServiceImpl.getAll()
                 .stream()
                 .filter(e -> e.getDepartament() == deptId)
                 .max(Comparator.comparingDouble(e -> e.getSalary()))
                 .orElseThrow(EmployeeNotFoundException::new);
     }
-
     @Override
     public Employee minSalary(int deptId) {
         return emloyeeServiceImpl.getAll()

@@ -21,6 +21,9 @@ public class Employee {
         this.salary = salary;
         this.departament = departament;
     }
+    public Employee(double salary){
+        this.salary=salary;
+    }
 
     public String getFirstName() {
         return firstName;
